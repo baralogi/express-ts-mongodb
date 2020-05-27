@@ -12,7 +12,7 @@ export const validateSignup = [
             return res.status(422).send({ errors: err.array() });
         }
 
-        next();
+        return next();
     }
 ]
 
@@ -26,7 +26,7 @@ export const validateSignin = [
             return res.status(422).send({ errors: err.array() });
         }
 
-        next();
+        return next();
     }
 ]
 

@@ -1,18 +1,26 @@
 // Dependency
 import { Request, Response } from "express";
-
-// Model
 import Todo, { ITodo } from "../models/todoModels";
-
-// Interface
 import IController from "./interfaceControllers";
 
 class todoController implements IController {
     index(req: Request, res: Response): Response {
         return res.send("Halaman Index");
     }
-    store(req: Request, res: Response): Response {
-        return res.send("");
+    store = async (req: Request, res: Response): Promise<Response> => {
+        const { id } = req.app.locals.user;
+        const { activity, description } = req.body;
+
+        const todo = new Todo({ createdBy: id, activity, description });
+        await todo.save();
+
+        return res.send({
+            status: res.statusCode,
+            success: true,
+            messages: "New todo created",
+            todo
+        });
+
     }
     show(req: Request, res: Response): Response {
         return res.send("");

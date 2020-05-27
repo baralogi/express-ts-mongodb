@@ -25,7 +25,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction): Pro
         }
 
         req.app.locals.user = user
-        next()
+        return next()
     } catch (error) {
         return res.send(error);
     }
