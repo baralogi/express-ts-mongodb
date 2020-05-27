@@ -12,7 +12,7 @@ class authRoutes extends baseRoutes {
         this.router.post("/", auth, validateTodo, todoController.store);
         this.router.get("/:id", auth, todoController.show);
         this.router.put("/:id", auth, validateTodo, todoController.update);
-        this.router.put("/:id", auth, todoController.destroy);
+        this.router.delete("/:id", auth, todoController.destroy);
     }
 }
 

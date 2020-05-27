@@ -57,7 +57,6 @@ class todoController implements IController {
             status: res.statusCode,
             success: true,
             messages: "Todo has been updated",
-            todo
         });
     }
     destroy = async (req: Request, res: Response): Promise<Response> => {
@@ -67,8 +66,7 @@ class todoController implements IController {
         return res.send({
             status: res.statusCode,
             success: true,
-            messages: "Todo has been updated",
-            todo
+            messages: "Todo has been deleted",
         });
     }
 
