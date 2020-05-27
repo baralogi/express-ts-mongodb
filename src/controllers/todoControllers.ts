@@ -31,22 +31,45 @@ class todoController implements IController {
 
     }
     show = async (req: Request, res: Response): Promise<Response> => {
-        // const { id: createdBy } = req.app.locals.user;
-        const id = req.params.id;
+        const { id } = req.params;
 
-        const todo = await Todo.findOne({ createdBy: id });
+        try {
+            const todo = await Todo.findOne({ _id: id });
+            return res.send({
+                status: res.statusCode,
+                success: true,
+                messages: "Todo has been loaded",
+                todo
+            });
+        } catch (error) {
+            return res.status(404).send({
+                status: res.statusCode,
+                success: false,
+                messages: "Todo not found",
+            });
+        }
+    }
+    update = async (req: Request, res: Response): Promise<Response> => {
+        const { id } = req.params;
+
+        const todo = await Todo.findOneAndUpdate({ _id: id }, { $set: req.body });
         return res.send({
             status: res.statusCode,
             success: true,
-            messages: "Todo has been loaded",
+            messages: "Todo has been updated",
             todo
         });
     }
-    update(req: Request, res: Response): Response {
-        return res.send("");
-    }
-    destroy(req: Request, res: Response): Response {
-        return res.send("");
+    destroy = async (req: Request, res: Response): Promise<Response> => {
+        const { id } = req.params;
+
+        const todo = await Todo.findOneAndDelete({ _id: id });
+        return res.send({
+            status: res.statusCode,
+            success: true,
+            messages: "Todo has been updated",
+            todo
+        });
     }
 
 }
