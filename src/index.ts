@@ -1,3 +1,4 @@
+// Dependency
 import express, { Application, Request, Response } from "express";
 import { config as dotenv } from "dotenv";
 import Mongoose from "./config/mongoose";
@@ -10,6 +11,7 @@ import cors from "cors";
 // Routes
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
+import todoRoutes from "./routes/todoRoutes";
 
 class App {
     public app: Application;
@@ -36,6 +38,7 @@ class App {
 
         this.app.use("/api/v1/auth", authRoutes);
         this.app.use("/api/v1/users", userRoutes);
+        this.app.use("/api/v1/todos", todoRoutes);
     }
 
     public start(): void {

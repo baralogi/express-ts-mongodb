@@ -50,10 +50,6 @@ class authController {
             token
         });
     }
-
-    profile = (req: Request, res: Response): Response => {
-        return res.send(req.app.locals.user);
-    }
 }
 
 export default new authController();

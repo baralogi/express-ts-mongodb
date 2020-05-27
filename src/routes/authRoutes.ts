@@ -9,7 +9,6 @@ class authRoutes extends baseRoutes {
     public routes(): void {
         this.router.post("/signup", validateSignup, authController.signup);
         this.router.get("/signin", validateSignin, authController.signin);
-        this.router.get("/profile", auth, authController.profile);
     }
 }
 

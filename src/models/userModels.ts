@@ -16,6 +16,15 @@ const userSchema = new Schema({
     name: { type: String, trim: true },
     about: { type: String, trim: true, default: 'Available' },
     avatar: { type: String, trim: true, default: null },
+
+}, {
+    timestamps: true
 });
+
+userSchema.methods.toJSON = function () {
+    let obj = this.toObject()
+    delete obj.password
+    return obj
+}
 
 export default mongoose.model<IUser>('User', userSchema);
