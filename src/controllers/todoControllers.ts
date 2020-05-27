@@ -30,8 +30,17 @@ class todoController implements IController {
         });
 
     }
-    show(req: Request, res: Response): Response {
-        return res.send("");
+    show = async (req: Request, res: Response): Promise<Response> => {
+        // const { id: createdBy } = req.app.locals.user;
+        const id = req.params.id;
+
+        const todo = await Todo.findOne({ createdBy: id });
+        return res.send({
+            status: res.statusCode,
+            success: true,
+            messages: "Todo has been loaded",
+            todo
+        });
     }
     update(req: Request, res: Response): Response {
         return res.send("");
