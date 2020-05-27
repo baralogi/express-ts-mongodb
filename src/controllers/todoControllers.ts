@@ -4,8 +4,16 @@ import Todo, { ITodo } from "../models/todoModels";
 import IController from "./interfaceControllers";
 
 class todoController implements IController {
-    index(req: Request, res: Response): Response {
-        return res.send("Halaman Index");
+    index = async (req: Request, res: Response): Promise<Response> => {
+        const { id } = req.app.locals.user;
+
+        const todo = await Todo.find({ createdBy: id });
+        return res.send({
+            status: res.statusCode,
+            success: true,
+            messages: "Todo has been loaded",
+            todo
+        });
     }
     store = async (req: Request, res: Response): Promise<Response> => {
         const { id } = req.app.locals.user;
