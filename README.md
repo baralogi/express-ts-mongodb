@@ -6,6 +6,13 @@
 
 ---
 
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Usage](#usage)
+- [Authors](#authors)
+
+---
+
 # REST API built in TS + Express + MongoDB
 
   The to do app example, contains JWT Auth and Mongoose ODM for MongoDB.  
