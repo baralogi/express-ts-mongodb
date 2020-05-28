@@ -26,7 +26,7 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them
 
 * [Node](https://nodejs.org/en/) - The web server
-* [Yarn](https://classic.yarnpkg.com/lang/en/) or [NPM](https://www.npmjs.com/) - Package Manager
+* [Yarn](https://classic.yarnpkg.com/lang/en/) - Package Manager
 * [MongoDB](https://www.mongodb.com/) - Database
 * [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) - API Testing Tool
 
@@ -35,8 +35,10 @@ What things you need to install the software and how to install them
 A step by step series of examples that tell you how to get a development env running, Say what the step will be : 
 
 1. Copy and rename ```.env.example``` to ```.env``` and configure your enviroment
-2. Run ``` $ npm instal ``` or ```$ yarn install ```
-3. Open Postman/ Insomnia to test API
+2. Run ```$ yarn install ```
+3. Run ``` $ yarn ts ```
+4. RUn ``` $ yarn dev ```
+5. Open Postman/ Insomnia to test API
 
 The Route User Manajemen & Auth : 
 | Method | EndPoint | Description |
