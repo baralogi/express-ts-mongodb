@@ -32,9 +32,7 @@ What things you need to install the software and how to install them
 
 ### Usage
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+A step by step series of examples that tell you how to get a development env running, Say what the step will be : 
 
 1. Copy and rename ```.env.example``` to ```.env``` and configure your enviroment
 2. Run ``` $ npm instal ``` or ```$ yarn install ```
@@ -51,7 +49,7 @@ The Route Todo Manajemen :
 | Method | EndPoint | Description |
 | --- | --- | --- |
 | GET | /api/v1/todo | Show All Todos |
-| POST | /api/v1/todo | Store New Todos |
+| POST | /api/v1/todo | Store New Todo |
 | GET | /api/v1/todo/:id | Show Todo |
 | PUT | /api/v1/todo/:id | Update Todo |
 | DELETE | /api/v1/todo/:id | Delete Todo |
