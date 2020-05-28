@@ -43,7 +43,7 @@ A step by step series of examples that tell you how to get a development env run
 The Route User Manajemen & Auth : 
 | Method | EndPoint | Description |
 | --- | --- | --- |
-| GET | /api/v1/auth/signin | User Auth |
+| POST | /api/v1/auth/signin | User Auth |
 | POST | /api/v1/auth/signup | User Register |
 | GET | /api/v1/user/Profile | User Profile |
 
