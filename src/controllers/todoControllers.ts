@@ -1,13 +1,14 @@
 // Dependency
 import { Request, Response } from "express";
-import Todo, { ITodo } from "../models/todoModels";
 import IController from "./interfaceControllers";
+import TodoService from "../services/todoServices";
+import Todo, { ITodo } from "../models/todoModels";
 
 class todoController implements IController {
     index = async (req: Request, res: Response): Promise<Response> => {
-        const { id } = req.app.locals.user;
+        const services: TodoService = new TodoService(req);
+        const todo = await services.getAll();
 
-        const todo = await Todo.find({ createdBy: id });
         return res.send({
             status: res.statusCode,
             success: true,
@@ -16,11 +17,8 @@ class todoController implements IController {
         });
     }
     store = async (req: Request, res: Response): Promise<Response> => {
-        const { id } = req.app.locals.user;
-        const { activity, description } = req.body;
-
-        const todo = new Todo({ createdBy: id, activity, description });
-        await todo.save();
+        const services: TodoService = new TodoService(req);
+        const todo = await services.store();
 
         return res.send({
             status: res.statusCode,
@@ -28,13 +26,12 @@ class todoController implements IController {
             messages: "New todo created",
             todo
         });
-
     }
     show = async (req: Request, res: Response): Promise<Response> => {
-        const { id } = req.params;
-
         try {
-            const todo = await Todo.findOne({ _id: id });
+            const services: TodoService = new TodoService(req);
+            const todo = await services.show();
+
             return res.send({
                 status: res.statusCode,
                 success: true,
@@ -45,14 +42,14 @@ class todoController implements IController {
             return res.status(404).send({
                 status: res.statusCode,
                 success: false,
-                messages: "Todo not found",
+                messages: "Todo not found"
             });
         }
     }
     update = async (req: Request, res: Response): Promise<Response> => {
-        const { id } = req.params;
+        const services: TodoService = new TodoService(req);
+        const todo = await services.update();
 
-        const todo = await Todo.findOneAndUpdate({ _id: id }, { $set: req.body });
         return res.send({
             status: res.statusCode,
             success: true,
@@ -60,9 +57,9 @@ class todoController implements IController {
         });
     }
     destroy = async (req: Request, res: Response): Promise<Response> => {
-        const { id } = req.params;
+        const services: TodoService = new TodoService(req);
+        const todo = await services.destroy();
 
-        const todo = await Todo.findOneAndDelete({ _id: id });
         return res.send({
             status: res.statusCode,
             success: true,
