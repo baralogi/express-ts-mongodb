@@ -1,0 +1,21 @@
+version: "1.0"
+services:
+  # ... Web server configs
+  app:
+    container_name: "ukmku_apps"
+    restart: always
+    build: .
+    ports:
+      - "4000:4000"
+    links: "mongo"
+  # ... Database configs
+  database:
+    image: "mongo"
+    container_name: "mongo"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME: admin
+      - MONGO_INITDB_ROOT_PASSWORD: ikanhiu123B@$
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./mongo-volume:/data/db
+    ports: -"27017:27017"
