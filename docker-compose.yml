@@ -13,8 +13,8 @@ services:
     image: "mongo"
     container_name: "mongo"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME: "admin"
-      - MONGO_INITDB_ROOT_PASSWORD: "ikanhiu123B@$"
+      - MONGO_INITDB_ROOT_USERNAME:admin
+      - MONGO_INITDB_ROOT_PASSWORD:ikanhiu123B@$
     volumes:
       - ./mongo-volume:/data/db
     ports: -"27017:27017"
