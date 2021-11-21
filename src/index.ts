@@ -11,7 +11,6 @@ import cors from "cors";
 // Routes
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
-import todoRoutes from "./routes/todoRoutes";
 import topicRoute from "./routes/topic.route";
 
 class App {
