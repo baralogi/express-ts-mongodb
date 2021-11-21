@@ -12,6 +12,7 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import todoRoutes from "./routes/todoRoutes";
+import topicRoute from "./routes/topic.route";
 
 class App {
     public app: Application;
@@ -23,7 +24,8 @@ class App {
     }
 
     public plugins(): void {
-        this.app.use(bodyParser.json());
+        this.app.use(express.json({ limit: '50mb' }))
+        this.app.use(express.urlencoded({ extended: true, limit: '50mb' }))
         this.app.use(morgan("dev"));
         this.app.use(compression());
         this.app.use(helmet());
@@ -38,11 +40,11 @@ class App {
 
         this.app.use("/api/v1/auth", authRoutes);
         this.app.use("/api/v1/users", userRoutes);
-        this.app.use("/api/v1/todos", todoRoutes);
+        this.app.use("/api/v1/topics", topicRoute);
     }
 
     public start(): void {
-        const port: number = 3001
+        const port: number = 3000
         this.app.listen(port, () => {
             console.log(`Server is listenning on port ${port}`);
         });
