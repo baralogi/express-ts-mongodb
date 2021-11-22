@@ -17,7 +17,7 @@ class ArticleService {
     getAll = async () => {
 
 
-        const { search_field, search_value, sort_field, sort_orientation, topic } = this.query;
+        const { filter_field, filter_value, sort_field, sort_orientation, topic } = this.query;
 
         const queryObj = {};
         const sortObj = {};
@@ -25,8 +25,8 @@ class ArticleService {
 
         let article = await Article.find(queryObj).sort(sortObj).populate({ path: 'topics', select: 'name' }).exec();
 
-        if (search_field !== '' && search_value !== '') {
-            queryObj[search_field] = search_value;
+        if (filter_field !== '' && filter_value !== '') {
+            queryObj[filter_field] = filter_value;
         }
 
         if (sort_field !== '' && sort_orientation !== '') {
