@@ -36,7 +36,7 @@ A step by step series of examples that tell you how to get a development env run
 
 1. Copy and rename `.env.example` to `.env` and configure your enviroment
 2. Run `$ yarn`
-3. Run `$ yarn ts`
+3. Run `$ yarn build:watch`
 4. RUn `$ yarn dev`
 5. Open Postman/ Insomnia to test API
 
