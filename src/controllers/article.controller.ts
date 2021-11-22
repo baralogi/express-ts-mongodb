@@ -1,11 +1,11 @@
 // Dependency
 import { Request, Response } from "express";
 import IController from "./interfaceControllers";
-import TopicService from "../services/topic.service";
+import ArticleService from "../services/article.service";
 
-class topicController implements IController {
+class articleController implements IController {
     index = async (req: Request, res: Response): Promise<Response> => {
-        const services: TopicService = new TopicService(req);
+        const services: ArticleService = new ArticleService(req);
         const data = await services.getAll();
 
         return res.send({
@@ -16,7 +16,7 @@ class topicController implements IController {
         });
     }
     store = async (req: Request, res: Response): Promise<Response> => {
-        const services: TopicService = new TopicService(req);
+        const services: ArticleService = new ArticleService(req);
         const data = await services.store();
 
         return res.send({
@@ -27,26 +27,27 @@ class topicController implements IController {
         });
     }
     show = async (req: Request, res: Response): Promise<Response> => {
-        try {
-            const services: TopicService = new TopicService(req);
-            const data = await services.show();
+        const services: ArticleService = new ArticleService(req);
+        const data = await services.show();
 
-            return res.send({
-                status: res.statusCode,
-                success: true,
-                messages: "Data found",
-                data
-            });
-        } catch (error) {
+        if (!data) {
             return res.status(404).send({
                 status: res.statusCode,
                 success: false,
                 messages: "Data not found"
             });
         }
+
+        return res.send({
+            status: res.statusCode,
+            success: true,
+            messages: "Data found",
+            data
+        });
+
     }
     update = async (req: Request, res: Response): Promise<Response> => {
-        const services: TopicService = new TopicService(req);
+        const services: ArticleService = new ArticleService(req);
         const dataUpdate = await services.update();
         const data = await services.show();
 
@@ -58,7 +59,7 @@ class topicController implements IController {
         });
     }
     destroy = async (req: Request, res: Response): Promise<Response> => {
-        const services: TopicService = new TopicService(req);
+        const services: ArticleService = new ArticleService(req);
         const data = await services.destroy();
 
         return res.send({
@@ -70,4 +71,4 @@ class topicController implements IController {
 
 }
 
-export default new topicController();
+export default new articleController();

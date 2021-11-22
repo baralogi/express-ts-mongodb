@@ -44,43 +44,43 @@ var topicController = /** @class */ (function () {
     function topicController() {
         var _this = this;
         this.index = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, topic;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         services = new topic_service_1.default(req);
                         return [4 /*yield*/, services.getAll()];
                     case 1:
-                        topic = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
                                 messages: "Data found",
-                                topic: topic
+                                data: data
                             })];
                 }
             });
         }); };
         this.store = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, topic;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         services = new topic_service_1.default(req);
                         return [4 /*yield*/, services.store()];
                     case 1:
-                        topic = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
                                 messages: "Data created",
-                                topic: topic
+                                data: data
                             })];
                 }
             });
         }); };
         this.show = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, topic, error_1;
+            var services, data, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -88,12 +88,12 @@ var topicController = /** @class */ (function () {
                         services = new topic_service_1.default(req);
                         return [4 /*yield*/, services.show()];
                     case 1:
-                        topic = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
                                 messages: "Data found",
-                                topic: topic
+                                data: data
                             })];
                     case 2:
                         error_1 = _a.sent();
@@ -107,35 +107,35 @@ var topicController = /** @class */ (function () {
             });
         }); };
         this.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, topic, findTopic;
+            var services, dataUpdate, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         services = new topic_service_1.default(req);
                         return [4 /*yield*/, services.update()];
                     case 1:
-                        topic = _a.sent();
+                        dataUpdate = _a.sent();
                         return [4 /*yield*/, services.show()];
                     case 2:
-                        findTopic = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
                                 messages: "Data updated",
-                                findTopic: findTopic
+                                data: data
                             })];
                 }
             });
         }); };
         this.destroy = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, topic;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         services = new topic_service_1.default(req);
                         return [4 /*yield*/, services.destroy()];
                     case 1:
-                        topic = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,

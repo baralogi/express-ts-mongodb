@@ -39,108 +39,110 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var todoServices_1 = __importDefault(require("../services/todoServices"));
-var todoController = /** @class */ (function () {
-    function todoController() {
+var article_service_1 = __importDefault(require("../services/article.service"));
+var articleController = /** @class */ (function () {
+    function articleController() {
         var _this = this;
         this.index = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, todo;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        services = new todoServices_1.default(req);
+                        services = new article_service_1.default(req);
                         return [4 /*yield*/, services.getAll()];
                     case 1:
-                        todo = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
-                                messages: "Todo has been loaded",
-                                todo: todo
+                                messages: "Data found",
+                                data: data
                             })];
                 }
             });
         }); };
         this.store = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, todo;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        services = new todoServices_1.default(req);
+                        services = new article_service_1.default(req);
                         return [4 /*yield*/, services.store()];
                     case 1:
-                        todo = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
-                                messages: "New todo created",
-                                todo: todo
+                                messages: "Data created",
+                                data: data
                             })];
                 }
             });
         }); };
         this.show = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, todo, error_1;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        services = new todoServices_1.default(req);
+                        services = new article_service_1.default(req);
                         return [4 /*yield*/, services.show()];
                     case 1:
-                        todo = _a.sent();
+                        data = _a.sent();
+                        if (!data) {
+                            return [2 /*return*/, res.status(404).send({
+                                    status: res.statusCode,
+                                    success: false,
+                                    messages: "Data not found"
+                                })];
+                        }
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
-                                messages: "Todo has been loaded",
-                                todo: todo
+                                messages: "Data found",
+                                data: data
                             })];
-                    case 2:
-                        error_1 = _a.sent();
-                        return [2 /*return*/, res.status(404).send({
-                                status: res.statusCode,
-                                success: false,
-                                messages: "Todo not found"
-                            })];
-                    case 3: return [2 /*return*/];
                 }
             });
         }); };
         this.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, todo;
+            var services, dataUpdate, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        services = new todoServices_1.default(req);
+                        services = new article_service_1.default(req);
                         return [4 /*yield*/, services.update()];
                     case 1:
-                        todo = _a.sent();
+                        dataUpdate = _a.sent();
+                        return [4 /*yield*/, services.show()];
+                    case 2:
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
-                                messages: "Todo has been updated",
+                                messages: "Data updated",
+                                data: data
                             })];
                 }
             });
         }); };
         this.destroy = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var services, todo;
+            var services, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        services = new todoServices_1.default(req);
+                        services = new article_service_1.default(req);
                         return [4 /*yield*/, services.destroy()];
                     case 1:
-                        todo = _a.sent();
+                        data = _a.sent();
                         return [2 /*return*/, res.send({
                                 status: res.statusCode,
                                 success: true,
-                                messages: "Todo has been deleted",
+                                messages: "Data deleted",
                             })];
                 }
             });
         }); };
     }
-    return todoController;
+    return articleController;
 }());
-exports.default = new todoController();
+exports.default = new articleController();

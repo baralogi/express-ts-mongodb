@@ -13,8 +13,7 @@ class TopicService {
     }
 
     getAll = async () => {
-        const { name } = this.body;
-        const topic = await Topic.find({}).sort({ name });
+        const topic = await Topic.find({}).sort({ name: 'asc' });
 
         return topic
     }

@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,44 +54,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.auth = void 0;
-var User_1 = __importDefault(require("../models/User"));
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-exports.auth = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var secretKey, token, credential, x, user, error_1;
+exports.articleStatus = void 0;
+var mongoose_1 = __importStar(require("mongoose"));
+var articleStatus;
+(function (articleStatus) {
+    articleStatus["DRAFT"] = "draft";
+    articleStatus["DELETED"] = "deleted";
+    articleStatus["PUBLISHED"] = "published";
+})(articleStatus = exports.articleStatus || (exports.articleStatus = {}));
+var articleSchema = new mongoose_1.Schema({
+    title: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    description: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: Object.values(articleStatus),
+        default: articleStatus.DRAFT
+    },
+    topics: [
+        {
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: "Topic"
+        }
+    ]
+}, {
+    timestamps: true
+});
+articleSchema.path('title').validate(function (value) { return __awaiter(void 0, void 0, void 0, function () {
+    var titleCount;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                if (!req.headers.authorization) {
-                    return [2 /*return*/, res.status(401).send("Authorization failed!, No token available")];
-                }
-                secretKey = process.env.JWT_SECRET_KEY || "secret";
-                token = req.headers.authorization.split(" ")[1];
-                _a.label = 1;
+            case 0: return [4 /*yield*/, mongoose_1.default.models.Article.countDocuments({ name: value })];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                credential = jsonwebtoken_1.default.verify(token, secretKey);
-                if (!credential) {
-                    return [2 /*return*/, res.status(401).send("Authorization Failed!, Token is Not Valid")];
-                }
-                req.app.locals.credential = credential;
-                x = req.app.locals.credential;
-                return [4 /*yield*/, User_1.default.findOne({ username: x.username })];
-            case 2:
-                user = _a.sent();
-                if (!user) {
-                    throw new Error('user not found');
-                }
-                req.app.locals.user = user;
-                return [2 /*return*/, next()];
-            case 3:
-                error_1 = _a.sent();
-                return [2 /*return*/, res.send(error_1)];
-            case 4: return [2 /*return*/];
+                titleCount = _a.sent();
+                return [2 /*return*/, !titleCount];
         }
     });
-}); };
+}); }, 'Topic name already exists');
+exports.default = mongoose_1.default.model('Article', articleSchema);

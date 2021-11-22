@@ -44,12 +44,10 @@ var TopicService = /** @class */ (function () {
     function TopicService(req) {
         var _this = this;
         this.getAll = function () { return __awaiter(_this, void 0, void 0, function () {
-            var name, topic;
+            var topic;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        name = this.body.name;
-                        return [4 /*yield*/, Topic_1.default.find({}).sort({ name: name })];
+                    case 0: return [4 /*yield*/, Topic_1.default.find({}).sort({ name: 'asc' })];
                     case 1:
                         topic = _a.sent();
                         return [2 /*return*/, topic];

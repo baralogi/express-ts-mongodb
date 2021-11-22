@@ -12,6 +12,7 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
 import topicRoute from "./routes/topic.route";
+import articleRoute from "./routes/article.route";
 
 class App {
     public app: Application;
@@ -40,6 +41,7 @@ class App {
         this.app.use("/api/v1/auth", authRoutes);
         this.app.use("/api/v1/users", userRoutes);
         this.app.use("/api/v1/topics", topicRoute);
+        this.app.use("/api/v1/articles", articleRoute);
     }
 
     public start(): void {

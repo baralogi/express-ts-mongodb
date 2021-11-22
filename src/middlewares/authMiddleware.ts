@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import User, { IUser } from "../models/userModels";
+import User, { IUser } from "../models/User";
 import jwt from "jsonwebtoken";
 
 export const auth = async (req: Request, res: Response, next: NextFunction): Promise<any> => {

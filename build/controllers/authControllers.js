@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var authentication_1 = __importDefault(require("../utils/authentication"));
-var userModels_1 = __importDefault(require("../models/userModels"));
+var User_1 = __importDefault(require("../models/User"));
 var authController = /** @class */ (function () {
     function authController() {
         var _this = this;
@@ -53,7 +53,7 @@ var authController = /** @class */ (function () {
                         return [4 /*yield*/, authentication_1.default.passwordHash(password)];
                     case 1:
                         hashedPassword = _b.sent();
-                        user = new userModels_1.default({ username: username, email: email, password: hashedPassword });
+                        user = new User_1.default({ username: username, email: email, password: hashedPassword });
                         return [4 /*yield*/, user.save()];
                     case 2:
                         _b.sent();
@@ -72,7 +72,7 @@ var authController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, email = _a.email, password = _a.password;
-                        return [4 /*yield*/, userModels_1.default.findOne({ email: email })];
+                        return [4 /*yield*/, User_1.default.findOne({ email: email })];
                     case 1:
                         user = _b.sent();
                         if (!user) {

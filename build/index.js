@@ -15,6 +15,7 @@ var cors_1 = __importDefault(require("cors"));
 var authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 var userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 var topic_route_1 = __importDefault(require("./routes/topic.route"));
+var article_route_1 = __importDefault(require("./routes/article.route"));
 var App = /** @class */ (function () {
     function App() {
         this.app = express_1.default();
@@ -37,6 +38,7 @@ var App = /** @class */ (function () {
         this.app.use("/api/v1/auth", authRoutes_1.default);
         this.app.use("/api/v1/users", userRoutes_1.default);
         this.app.use("/api/v1/topics", topic_route_1.default);
+        this.app.use("/api/v1/articles", article_route_1.default);
     };
     App.prototype.start = function () {
         var port = 3000;

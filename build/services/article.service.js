@@ -39,81 +39,99 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var todoModels_1 = __importDefault(require("../models/todoModels"));
-var TodoService = /** @class */ (function () {
-    function TodoService(req) {
+var Article_1 = __importDefault(require("../models/Article"));
+var ArticleService = /** @class */ (function () {
+    function ArticleService(req) {
         var _this = this;
         this.getAll = function () { return __awaiter(_this, void 0, void 0, function () {
-            var id, todo;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, search_field, search_value, sort_field, sort_orientation, topic, queryObj, sortObj, match, article, articleList;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        id = this.auth.id;
-                        return [4 /*yield*/, todoModels_1.default.find({ createdBy: id })];
+                        _a = this.query, search_field = _a.search_field, search_value = _a.search_value, sort_field = _a.sort_field, sort_orientation = _a.sort_orientation, topic = _a.topic;
+                        queryObj = {};
+                        sortObj = {};
+                        match = {};
+                        return [4 /*yield*/, Article_1.default.find(queryObj).sort(sortObj).populate({ path: 'topics', select: 'name' }).exec()];
                     case 1:
-                        todo = _a.sent();
-                        return [2 /*return*/, todo];
+                        article = _b.sent();
+                        if (search_field !== '' && search_value !== '') {
+                            queryObj[search_field] = search_value;
+                        }
+                        if (sort_field !== '' && sort_orientation !== '') {
+                            sortObj[sort_field] = sort_orientation;
+                        }
+                        if (!(match !== '')) return [3 /*break*/, 3];
+                        return [4 /*yield*/, Article_1.default.find(queryObj).sort(sortObj).populate({ path: 'topics', select: 'name', match: { name: topic } }).exec()];
+                    case 2:
+                        article = _b.sent();
+                        _b.label = 3;
+                    case 3:
+                        articleList = article.filter(function (data) {
+                            return data.topics.length > 0;
+                        });
+                        return [2 /*return*/, { articleList: articleList, topic: topic }];
                 }
             });
         }); };
         this.store = function () { return __awaiter(_this, void 0, void 0, function () {
-            var id, _a, activity, description, todo;
+            var _a, title, description, status, topics, article;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        id = this.auth.id;
-                        _a = this.body, activity = _a.activity, description = _a.description;
-                        todo = new todoModels_1.default({ createdBy: id, activity: activity, description: description });
-                        return [4 /*yield*/, todo.save()];
+                        _a = this.body, title = _a.title, description = _a.description, status = _a.status, topics = _a.topics;
+                        article = new Article_1.default({ title: title, description: description, status: status, topics: topics });
+                        return [4 /*yield*/, article.save()];
                     case 1:
                         _b.sent();
-                        return [2 /*return*/, todo];
+                        return [2 /*return*/, article];
                 }
             });
         }); };
         this.show = function () { return __awaiter(_this, void 0, void 0, function () {
-            var id, todo;
+            var id, article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = this.params.id;
-                        return [4 /*yield*/, todoModels_1.default.findOne({ _id: id })];
+                        return [4 /*yield*/, Article_1.default.findOne({ _id: id })];
                     case 1:
-                        todo = _a.sent();
-                        return [2 /*return*/, todo];
+                        article = _a.sent();
+                        return [2 /*return*/, article];
                 }
             });
         }); };
         this.update = function () { return __awaiter(_this, void 0, void 0, function () {
-            var id, todo;
+            var id, article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = this.params.id;
-                        return [4 /*yield*/, todoModels_1.default.findOneAndUpdate({ _id: id }, { $set: this.body })];
+                        return [4 /*yield*/, Article_1.default.findOneAndUpdate({ _id: id }, { $set: this.body })];
                     case 1:
-                        todo = _a.sent();
-                        return [2 /*return*/, todo];
+                        article = _a.sent();
+                        return [2 /*return*/, article];
                 }
             });
         }); };
         this.destroy = function () { return __awaiter(_this, void 0, void 0, function () {
-            var id, todo;
+            var id, article;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = this.params.id;
-                        return [4 /*yield*/, todoModels_1.default.findOneAndDelete({ _id: id })];
+                        return [4 /*yield*/, Article_1.default.findOneAndDelete({ _id: id })];
                     case 1:
-                        todo = _a.sent();
-                        return [2 /*return*/, todo];
+                        article = _a.sent();
+                        return [2 /*return*/, article];
                 }
             });
         }); };
         this.auth = req.app.locals.user;
         this.body = req.body;
         this.params = req.params;
+        this.query = req.query;
     }
-    return TodoService;
+    return ArticleService;
 }());
-exports.default = TodoService;
+exports.default = ArticleService;

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, Router } from "express";
 import Authentication from "../utils/authentication";
-import User, { IUser } from "../models/userModels";
+import User, { IUser } from "../models/User";
 
 class authController {
     signup = async (req: Request, res: Response): Promise<Response> => {
