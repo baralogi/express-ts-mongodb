@@ -15,7 +15,7 @@
 
 # REST API built in TS + Express + MongoDB
 
-The to do app example, contains JWT Auth and Mongoose ODM for MongoDB.
+The Blog app example, contains JWT Auth and Mongoose ODM for MongoDB.
 
 ## Getting Started
 
